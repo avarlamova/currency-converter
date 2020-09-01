@@ -4,7 +4,11 @@ export default class InputWindow extends React.Component {
     render() {
         return(
         <div> 
-            <input type="range"  /> Currency
+            <span/> Currency
+            <select>
+                <option> AUD </option>
+                <option>BGN</option>
+            </select>
             <input type="number"  /> Sum
         </div>
         )

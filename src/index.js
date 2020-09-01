@@ -5,6 +5,7 @@ import InputWindow from './components/inputwindow';
 import Output from './components/output';
 
 
+
 ReactDOM.render(
   <React.StrictMode>
     <Header/>
