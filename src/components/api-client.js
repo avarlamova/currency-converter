@@ -7,21 +7,4 @@ export default class APIService {
       //const response = await fetch(`${this.url_base}'?access_key='${this.api_key}'&currencies=${this.currency}'&source=${this.sourcs}`);
       return await response.json();
     };
-  
-    /*
-    async getAUD () {
-      const res = await this.getresults();
-      return res.rates.AUD;
-    };
-  
-    async getCAD () {
-      const res = await this.getresults();
-      return res.rates.CAD;
-    };  
-  
-    async getHKD () {
-      const res = await this.getresults();
-      return res.rates.HKD;
-    };
-    */
 }

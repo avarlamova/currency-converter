@@ -1,27 +1,23 @@
 import React from 'react';
-import APIService from 'src/services/api-client.js';
+import APIService from './api-client.js';
 
 export default class Output extends React.Component {
 
-    apiclient = new APIService();
+    apiСlient = new APIService();
 
-    state = {
-        currency: '',
-        amount: null,
-        rate: '',
-    };
+   
 
-    getCurrency() {
-        this.apiclient.getResults()
-        .then((x)=> {
-            //console.log(x);
-            this.setState({
-                rate: x.rate,
-            })
-          });
+    getOutcome = () => {
+//из предыдущей функции стейт не успевает обновиться, надо запускать отдельной(этой) функцией
+        let result = this.props.amount/this.props.rate;
+        result.toFixed(2);
+        this.setState({
+            outcome: result,
+        });
     }
 
     render() {
+        const { rate, outcome } = this.props;
         return(
         <div> 
             <span/> Currency
@@ -29,7 +25,10 @@ export default class Output extends React.Component {
                 <option> AUD </option>
                 <option>BGN</option>
             </select>
-            <input type="number"  /> Sum
+            <input type="number" onChange={this.getCurrency} /> Sum
+            <div>{rate}</div>
+            <div>{outcome}</div>
+            <button onClick={this.getOutcome}> BTN</button>
         </div>
         )
     }
