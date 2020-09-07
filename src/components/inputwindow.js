@@ -2,21 +2,22 @@ import React from 'react';
 
 export default class InputWindow extends React.Component {
 
-    state = {
-        currency: '',
-        amount: null,
-        rate: '',
-    }
-
     render() {
+    const {onInput} = this.props;
+
         return(
         <div> 
+            <form> 
             <span/> Currency
             <select>
                 <option> AUD </option>
                 <option>BGN</option>
             </select>
-            <input type="number"  /> Sum
+            </form>
+            <form> 
+                <span>Sum</span>
+                <input type="number" onChange={onInput} placeholder=""/> 
+            </form>
         </div>
         )
     }
