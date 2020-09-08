@@ -6,26 +6,32 @@ import APIService from './api-client.js';
 
 export default class App extends Component {
 state = {
-    currency: '',
+    base_currency: '',
+    target_currency:'',
     amount: null,
     rate: null,
     outcome: null,
 };
 
-updateCurrency = (e) => {
+updateBaseCurrency = (e) => {
     this.setState({
-        currency: e.target.value,
+        base_currency: e.target.value,
     })
-    console.log(this.state.currency);
+};
+
+updateTargetCurrency = (e) => {
+    this.setState({
+        target_currency: e.target.value,
+    })
 }
 
 apiСlient = new APIService();
 
 getCurrency = () => {
-    this.apiСlient.getresults()
-    .then((x)=> {
+    this.apiСlient.getresults(this.state.base_currency)
+    .then((x,r)=> {
         this.setState({
-            rate: x.quotes.USDEUR.toFixed(2),
+            rate: x.rates[this.state.target_currency].toFixed(2),
         });
       });
 };
@@ -52,10 +58,12 @@ render() {
         <Header/>
         <InputWindow
         onInput = {this.onInput}
+        updateBaseCurrency = {this.updateBaseCurrency}
         amount = {this.state.amount}/>
         <Output
         rate = {this.state.rate}
         outcome = {this.state.outcome}
+        updateTargetCurrency = {this.updateTargetCurrency}
         getCurrency = {this.getCurrency}
         getOutcome = {this.getOutcome} />
     </div>
