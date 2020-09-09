@@ -6,8 +6,8 @@ import APIService from './api-client.js';
 
 export default class App extends Component {
 state = {
-    base_currency: '',
-    target_currency:'',
+    base_currency: 'USD',
+    target_currency:'EUR',
     amount: null,
     rate: null,
     outcome: null,
@@ -31,14 +31,14 @@ getCurrency = () => {
     this.apiСlient.getresults(this.state.base_currency)
     .then((x,r)=> {
         this.setState({
-            rate: x.rates[this.state.target_currency].toFixed(2),
+            rate: x.rates[this.state.target_currency],
         });
       });
 };
 
 getOutcome = () => {
     //из предыдущей функции стейт не успевает обновиться, надо запускать отдельной(этой) функцией
-            let result = this.state.amount/this.state.rate;
+            let result = this.state.amount*this.state.rate;
             result = result.toFixed(2);
             this.setState({
                 outcome: result,
@@ -58,6 +58,7 @@ render() {
         <Header/>
         <InputWindow
         onInput = {this.onInput}
+        onFocus = {this.getCurrency}
         updateBaseCurrency = {this.updateBaseCurrency}
         amount = {this.state.amount}/>
         <Output

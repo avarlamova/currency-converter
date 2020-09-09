@@ -41,12 +41,12 @@ export default class Output extends React.Component {
                     <option value="GBP">GBP</option>
                     <option value="KRW">KRW</option>
                     <option value="MYR">MYR</option>
-                    <option value="EUR"> EUR </option>
+                    <option value="EUR" selected> EUR </option>
                 </select>   
             </form>
             <input type="number" value = {outcome} /> Sum
             <div>Rate: {rate}</div>
-            <button onClick={getCurrency}> Get rate</button>
+            <button > Get rate</button>
             <button onClick={getOutcome}> Convert</button>
         </div>
         )

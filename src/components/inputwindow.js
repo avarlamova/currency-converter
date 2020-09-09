@@ -35,7 +35,7 @@ export default class InputWindow extends React.Component {
                     <option value="NOK">NOK</option>
                     <option value="NZD">NZD</option>
                     <option value="ZAR">ZAR</option>
-                    <option value="USD">USD</option>
+                    <option value="USD" selected>USD</option>
                     <option value="MXN">MXN</option>
                     <option value="ILS">ILS</option>
                     <option value="GBP">GBP</option>
