@@ -3,12 +3,11 @@ import React from 'react';
 export default class Output extends React.Component {
 
     render() {
-        const { rate, outcome, getOutcome, getCurrency, updateTargetCurrency } = this.props;
+        const { rate, outcome, target_currency, getOutcome, updateTargetCurrency } = this.props;
         return(
         <div> 
-            <form> 
                 <span/> Currency
-                <select onChange={updateTargetCurrency}>
+                <select value = {target_currency} defaultValue = "EUR" onChange={updateTargetCurrency}>
                     <option value="AUD"> AUD </option>
                     <option value="BGN">BGN</option>
                     <option value="BRL">BRL</option>
@@ -41,12 +40,10 @@ export default class Output extends React.Component {
                     <option value="GBP">GBP</option>
                     <option value="KRW">KRW</option>
                     <option value="MYR">MYR</option>
-                    <option value="EUR" selected> EUR </option>
+                    <option value="EUR"> EUR </option>
                 </select>   
-            </form>
             <input type="number" value = {outcome} /> Sum
             <div>Rate: {rate}</div>
-            <button > Get rate</button>
             <button onClick={getOutcome}> Convert</button>
         </div>
         )

@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component} from 'react';
 import Header from './header';
 import InputWindow from './inputwindow';
 import Output from './output';
 import APIService from './api-client.js';
+import './app.css';
 
 export default class App extends Component {
 state = {
@@ -10,8 +11,9 @@ state = {
     target_currency:'EUR',
     amount: null,
     rate: null,
+    rateRounded: null,
     outcome: null,
-};
+    };
 
 updateBaseCurrency = (e) => {
     this.setState({
@@ -20,6 +22,7 @@ updateBaseCurrency = (e) => {
 };
 
 updateTargetCurrency = (e) => {
+    console.log('updated', this.state.target_currency);
     this.setState({
         target_currency: e.target.value,
     })
@@ -29,15 +32,17 @@ apiСlient = new APIService();
 
 getCurrency = () => {
     this.apiСlient.getresults(this.state.base_currency)
-    .then((x,r)=> {
+    .then((x)=> {
         this.setState({
             rate: x.rates[this.state.target_currency],
+            rateRounded: x.rates[this.state.target_currency].toFixed(2),
         });
       });
 };
 
+
+//при изменении инпутов не обновляется курс валюты
 getOutcome = () => {
-    //из предыдущей функции стейт не успевает обновиться, надо запускать отдельной(этой) функцией
             let result = this.state.amount*this.state.rate;
             result = result.toFixed(2);
             this.setState({
@@ -55,17 +60,16 @@ render() {
 
     return(
     <div>
-        <Header/>
+        <h1><Header/></h1>
         <InputWindow
         onInput = {this.onInput}
-        onFocus = {this.getCurrency}
+        getCurrency = {this.getCurrency}
         updateBaseCurrency = {this.updateBaseCurrency}
         amount = {this.state.amount}/>
         <Output
-        rate = {this.state.rate}
+        rate = {this.state.rateRounded}
         outcome = {this.state.outcome}
         updateTargetCurrency = {this.updateTargetCurrency}
-        getCurrency = {this.getCurrency}
         getOutcome = {this.getOutcome} />
     </div>
     )

@@ -3,12 +3,12 @@ import React from 'react';
 export default class InputWindow extends React.Component {
 
     render() {
-    const {onInput, updateBaseCurrency} = this.props;
+    const {onInput, updateBaseCurrency, getCurrency, base_currency} = this.props;
 
         return(
         <div> 
             <span/> Currency
-            <select onChange={updateBaseCurrency}>
+            <select value = {base_currency} defaultValue = "USD" onChange={updateBaseCurrency}>
                     <option value="AUD">AUD </option>
                     <option value="BGN">BGN</option>
                     <option value="BRL">BRL</option>
@@ -35,7 +35,7 @@ export default class InputWindow extends React.Component {
                     <option value="NOK">NOK</option>
                     <option value="NZD">NZD</option>
                     <option value="ZAR">ZAR</option>
-                    <option value="USD" selected>USD</option>
+                    <option value="USD">USD</option>
                     <option value="MXN">MXN</option>
                     <option value="ILS">ILS</option>
                     <option value="GBP">GBP</option>
@@ -45,7 +45,7 @@ export default class InputWindow extends React.Component {
             </select>
             <form> 
                 <span>Sum</span>
-                <input type="number" onChange={onInput} placeholder=""/> 
+                <input type="number" onInput={onInput} onChange = {getCurrency} placeholder=""/> 
             </form>
         </div>
         )
