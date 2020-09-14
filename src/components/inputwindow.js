@@ -3,7 +3,7 @@ import React from 'react';
 export default class InputWindow extends React.Component {
 
     render() {
-    const {onInput, updateBaseCurrency, getCurrency, base_currency} = this.props;
+    const {amount, onInput, updateBaseCurrency, getCurrency, base_currency} = this.props;
 
         return(
         <div> 
@@ -45,7 +45,7 @@ export default class InputWindow extends React.Component {
             </select>
             <form> 
                 <span>Sum</span>
-                <input type="number" onInput={onInput} onChange = {getCurrency} placeholder=""/> 
+                <input type="number" onInput={onInput} onChange = {getCurrency} placeholder="" defaultValue={amount}/> 
             </form>
         </div>
         )

@@ -9,11 +9,22 @@ export default class App extends Component {
 state = {
     base_currency: 'USD',
     target_currency:'EUR',
-    amount: null,
+    amount: 100,
     rate: null,
     rateRounded: null,
     outcome: null,
     };
+
+componentDidUpdate(prevProps, prevState) {
+    if (prevState.base_currency !== this.state.base_currency) {
+        this.getCurrency();
+    }
+
+    if (prevState.amount!== this.state.amount) {
+
+    }
+}
+
 
 updateBaseCurrency = (e) => {
     this.setState({
@@ -43,11 +54,11 @@ getCurrency = () => {
 
 //при изменении инпутов не обновляется курс валюты
 getOutcome = () => {
-            let result = this.state.amount*this.state.rate;
-            result = result.toFixed(2);
-            this.setState({
-                outcome: result,
-            });
+        let result = this.state.amount*this.state.rate;
+        result = result.toFixed(2);
+        this.setState({
+            outcome: result,
+        });
 };
 
 onInput = (e) => {
