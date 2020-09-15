@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default class Output extends React.Component {
-
+    
     render() {
         const { rate, outcome, target_currency, getOutcome, updateTargetCurrency } = this.props;
         return(

@@ -15,15 +15,13 @@ state = {
     outcome: null,
     };
 
-componentDidUpdate(prevProps, prevState) {
-    if (prevState.base_currency !== this.state.base_currency) {
-        this.getCurrency();
-    }
 
-    if (prevState.amount!== this.state.amount) {
+componentDidUpdate(prevState) {
+        if (prevState.base_currency !== this.state.base_currency || prevState.target_currency !== this.state.target_currency) {
+            this.getCurrency();
+        }    
+};
 
-    }
-}
 
 
 updateBaseCurrency = (e) => {
@@ -33,7 +31,6 @@ updateBaseCurrency = (e) => {
 };
 
 updateTargetCurrency = (e) => {
-    console.log('updated', this.state.target_currency);
     this.setState({
         target_currency: e.target.value,
     })
@@ -52,13 +49,18 @@ getCurrency = () => {
 };
 
 
-//при изменении инпутов не обновляется курс валюты
 getOutcome = () => {
+    if (this.state.rate){
         let result = this.state.amount*this.state.rate;
         result = result.toFixed(2);
         this.setState({
             outcome: result,
         });
+    }
+
+    else {
+        this.getCurrency();
+    }
 };
 
 onInput = (e) => {
