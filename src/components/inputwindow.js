@@ -2,13 +2,14 @@ import React from 'react';
 
 export default class InputWindow extends React.Component {
 
+
     render() {
     const {amount, onInput, updateBaseCurrency, getCurrency, base_currency} = this.props;
 
         return(
         <div> 
             <span/> Currency
-            <select value = {base_currency} defaultValue = "USD" onChange={updateBaseCurrency}>
+            <select value = {base_currency} onChange={updateBaseCurrency}>
                     <option value="AUD">AUD </option>
                     <option value="BGN">BGN</option>
                     <option value="BRL">BRL</option>

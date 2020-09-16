@@ -12,17 +12,14 @@ state = {
     amount: 100,
     rate: null,
     rateRounded: null,
-    outcome: null,
+    outcome: undefined,
     };
-
 
 componentDidUpdate(prevState) {
         if (prevState.base_currency !== this.state.base_currency || prevState.target_currency !== this.state.target_currency) {
             this.getCurrency();
         }    
 };
-
-
 
 updateBaseCurrency = (e) => {
     this.setState({
@@ -33,8 +30,14 @@ updateBaseCurrency = (e) => {
 updateTargetCurrency = (e) => {
     this.setState({
         target_currency: e.target.value,
-    })
-}
+    });
+};
+
+onInput = (e) => {
+    this.setState({
+        amount: e.target.value,
+    });
+};
 
 apiСlient = new APIService();
 
@@ -47,7 +50,6 @@ getCurrency = () => {
         });
       });
 };
-
 
 getOutcome = () => {
     if (this.state.rate){
@@ -63,25 +65,22 @@ getOutcome = () => {
     }
 };
 
-onInput = (e) => {
-    this.setState({
-        amount: e.target.value,
-    })
-};
 
 render() {
-
+    const {amount, target_currency, base_currency, outcome, rateRounded, } = this.state;
     return(
     <div>
         <h1><Header/></h1>
         <InputWindow
+        base_currency = {base_currency}
         onInput = {this.onInput}
         getCurrency = {this.getCurrency}
         updateBaseCurrency = {this.updateBaseCurrency}
-        amount = {this.state.amount}/>
+        amount = {amount}/>
         <Output
-        rate = {this.state.rateRounded}
-        outcome = {this.state.outcome}
+        target_currency = {target_currency}
+        rate = {rateRounded}
+        outcome = {outcome}
         updateTargetCurrency = {this.updateTargetCurrency}
         getOutcome = {this.getOutcome} />
     </div>
