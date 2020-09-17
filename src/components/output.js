@@ -2,13 +2,10 @@ import React from 'react';
 
 export default class Output extends React.Component {
 
-    test = () => {
-        console.log('test');
-    }
     render() {
         const { rate, outcome, target_currency, getOutcome, updateTargetCurrency } = this.props;
         return(
-        <div> 
+        <div className = "output-form"> 
                 <span/> Currency
                 <select value = {target_currency} onChange={updateTargetCurrency}>
                     <option value="AUD"> AUD </option>
@@ -47,7 +44,7 @@ export default class Output extends React.Component {
                 </select>   
             <input type="number" defaultValue = {outcome}/> Sum
             <div>Rate: {rate}</div>
-            <button onClick={getOutcome}> Convert</button>
+            <button className = "convert-btn" onClick={getOutcome}> Convert</button>
         </div>
         )
     }

@@ -3,6 +3,7 @@ import Header from './header';
 import InputWindow from './inputwindow';
 import Output from './output';
 import APIService from './api-client.js';
+import ReverseButton from './reversebutton';
 import './app.css';
 
 export default class App extends Component {
@@ -65,18 +66,27 @@ getOutcome = () => {
     }
 };
 
+reverse = () =>{
+    this.setState({
+        target_currency: this.state.base_currency,
+        base_currency: this.state.target_currency,
+    })
+}
+
 
 render() {
     const {amount, target_currency, base_currency, outcome, rateRounded, } = this.state;
     return(
     <div>
-        <h1><Header/></h1>
+        <Header/>
         <InputWindow
         base_currency = {base_currency}
         onInput = {this.onInput}
         getCurrency = {this.getCurrency}
         updateBaseCurrency = {this.updateBaseCurrency}
         amount = {amount}/>
+        <ReverseButton
+        reverse = {this.reverse} />
         <Output
         target_currency = {target_currency}
         rate = {rateRounded}

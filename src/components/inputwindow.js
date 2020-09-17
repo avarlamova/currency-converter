@@ -7,7 +7,7 @@ export default class InputWindow extends React.Component {
     const {amount, onInput, updateBaseCurrency, getCurrency, base_currency} = this.props;
 
         return(
-        <div> 
+        <div className="input-form"> 
             <span/> Currency
             <select value = {base_currency} onChange={updateBaseCurrency}>
                     <option value="AUD">AUD </option>
