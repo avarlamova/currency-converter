@@ -14,13 +14,15 @@ state = {
     rate: null,
     rateRounded: null,
     outcome: undefined,
+    reversed: false,
     };
 
 componentDidUpdate(prevState) {
         if (prevState.base_currency !== this.state.base_currency || prevState.target_currency !== this.state.target_currency) {
+            if (prevState.reversed===this.state.reversed)
             this.getCurrency();
-        }    
-};
+        };
+    };
 
 updateBaseCurrency = (e) => {
     this.setState({
@@ -66,12 +68,15 @@ getOutcome = () => {
     }
 };
 
-reverse = () =>{
+//
+reverse = () => {
     this.setState({
-        target_currency: this.state.base_currency,
-        base_currency: this.state.target_currency,
-    })
-}
+            reversed: !this.state.reversed,
+            target_currency: this.state.base_currency,
+            base_currency: this.state.target_currency,
+          }
+        );
+};   
 
 
 render() {
