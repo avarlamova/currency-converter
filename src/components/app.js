@@ -19,10 +19,24 @@ state = {
 
 componentDidUpdate(prevState) {
         if (prevState.base_currency !== this.state.base_currency || prevState.target_currency !== this.state.target_currency) {
-            if (prevState.reversed===this.state.reversed)
+            if (this.state.reversed ===false)
             this.getCurrency();
         };
-    };
+
+        //infinite loop for some reason
+        if (prevState.reversed !== this.state.reversed && this.state.reversed === false)
+        {   this.setState({reversed: true});
+            this.reverse();
+        }
+
+        if (prevState.reversed !== this.state.reversed && this.state.reversed === true)
+            {
+                this.setState({reversed: true});
+            this.reverse();
+            }
+            console.log(this.state.base_currency, this.state.target_currency)
+        };
+
 
 updateBaseCurrency = (e) => {
     this.setState({
@@ -68,19 +82,15 @@ getOutcome = () => {
     }
 };
 
-//
 reverse = () => {
     this.setState({
-            reversed: !this.state.reversed,
-            target_currency: this.state.base_currency,
-            base_currency: this.state.target_currency,
-          }
-        );
-};   
-
+        base_currency: this.state.target_currency,
+        target_currency: this.state.base_currency,
+    })
+}
 
 render() {
-    const {amount, target_currency, base_currency, outcome, rateRounded, } = this.state;
+    const {amount, target_currency, base_currency, outcome, rateRounded, reversed } = this.state;
     return(
     <div>
         <Header/>
@@ -90,8 +100,10 @@ render() {
         getCurrency = {this.getCurrency}
         updateBaseCurrency = {this.updateBaseCurrency}
         amount = {amount}/>
-        <ReverseButton
-        reverse = {this.reverse} />
+        <ReverseButton 
+        base = {base_currency}
+        target = {target_currency}
+        reverse ={this.reverse}/>
         <Output
         target_currency = {target_currency}
         rate = {rateRounded}
