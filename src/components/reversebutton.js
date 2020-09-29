@@ -21,7 +21,7 @@ export default class ReverseButton extends React.Component {
         const {reverse} = this.props;
         return(
             <div>
-                <button onClick={this.reverseChild}> Reverse </button>
+                <button onClick={reverse}> Reverse </button>
             </div>
         )
     };

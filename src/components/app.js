@@ -14,29 +14,21 @@ state = {
     rate: null,
     rateRounded: null,
     outcome: undefined,
+    rateReversed: null,
+    rateReversedRounded: null,
     reversed: false,
     };
 
 componentDidUpdate(prevState) {
-        if (prevState.base_currency !== this.state.base_currency || prevState.target_currency !== this.state.target_currency) {
-            if (this.state.reversed ===false)
-            this.getCurrency();
-        };
-
-        //infinite loop for some reason
-        if (prevState.reversed !== this.state.reversed && this.state.reversed === false)
-        {   this.setState({reversed: true});
-            this.reverse();
-        }
-
-        if (prevState.reversed !== this.state.reversed && this.state.reversed === true)
-            {
-                this.setState({reversed: true});
-            this.reverse();
+            if (this.state.reversed === false)
+                {
+                if (prevState.base_currency !== this.state.base_currency || prevState.target_currency !== this.state.target_currency)
+                this.getCurrency();
+                }
+            else if (this.state.reversed === true) {
+                this.getCurrencyReversed();
             }
-            console.log(this.state.base_currency, this.state.target_currency)
-        };
-
+    };
 
 updateBaseCurrency = (e) => {
     this.setState({
@@ -66,15 +58,35 @@ getCurrency = () => {
             rateRounded: x.rates[this.state.target_currency].toFixed(2),
         });
       });
-};
+    };
+
+getCurrencyReversed = () => {
+    this.apiСlient.getresults(this.state.target_currency)
+      .then((x)=> {
+        console.log(x);
+          this.setState({
+              rateReversed: x.rates[this.state.base_currency],
+              rateReversedRounded: x.rates[this.state.base_currency].toFixed(2),
+          });
+        });
+}
 
 getOutcome = () => {
     if (this.state.rate){
-        let result = this.state.amount*this.state.rate;
-        result = result.toFixed(2);
-        this.setState({
-            outcome: result,
-        });
+        if (this.state.reversed===false) {
+            let result = this.state.amount*this.state.rate;
+            result = result.toFixed(2);
+            this.setState({
+                outcome: result,
+            });
+            }
+        else if (this.state.reversed === true) {
+            let result = this.state.amount*this.state.rateReversed;
+            result = result.toFixed(2);
+            this.setState({
+                outcome: result,
+            });
+        }
     }
 
     else {
@@ -84,13 +96,14 @@ getOutcome = () => {
 
 reverse = () => {
     this.setState({
+        reversed: !this.state.reversed,
         base_currency: this.state.target_currency,
         target_currency: this.state.base_currency,
     })
 }
 
 render() {
-    const {amount, target_currency, base_currency, outcome, rateRounded, reversed } = this.state;
+    const {amount, target_currency, base_currency, outcome, rateRounded, reversed, rateReversedRounded } = this.state;
     return(
     <div>
         <Header/>
@@ -101,12 +114,12 @@ render() {
         updateBaseCurrency = {this.updateBaseCurrency}
         amount = {amount}/>
         <ReverseButton 
-        base = {base_currency}
-        target = {target_currency}
         reverse ={this.reverse}/>
         <Output
         target_currency = {target_currency}
         rate = {rateRounded}
+        reversed = {reversed}
+        rateReversed = {rateReversedRounded}
         outcome = {outcome}
         updateTargetCurrency = {this.updateTargetCurrency}
         getOutcome = {this.getOutcome} />

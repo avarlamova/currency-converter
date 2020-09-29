@@ -3,7 +3,7 @@ import React from 'react';
 export default class Output extends React.Component {
 
     render() {
-        const { rate, outcome, target_currency, getOutcome, updateTargetCurrency } = this.props;
+        const { reversed, rate, outcome, target_currency, getOutcome, updateTargetCurrency, rateReversed } = this.props;
         return(
         <div className = "output-form"> 
                 <span/> Currency
@@ -43,7 +43,14 @@ export default class Output extends React.Component {
                     <option value="EUR"> EUR </option>
                 </select>   
             <input type="number" defaultValue = {outcome}/> Sum
-            <div>Rate: {rate}</div>
+            <div>
+                {
+                reversed? 
+                    (<div>Rate rev: {rateReversed} </div>)
+                    :
+                    (<div >Rate: {rate}</div>)
+                }
+            </div>
             <button className = "convert-btn" onClick={getOutcome}> Convert</button>
         </div>
         )
