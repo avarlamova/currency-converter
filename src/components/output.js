@@ -3,11 +3,11 @@ import React from 'react';
 export default class Output extends React.Component {
 
     render() {
-        const { reversed, rate, outcome, target_currency, getOutcome, updateTargetCurrency, rateReversed } = this.props;
+        const { base_currency, reversed, rate, outcome, target_currency, getOutcome, updateTargetCurrency, rateReversed } = this.props;
         return(
         <div className = "output-form"> 
                 <span/> Currency
-                <select value = {target_currency} onChange={updateTargetCurrency}>
+                <select value = {reversed ? base_currency : target_currency} onChange={updateTargetCurrency}>
                     <option value="AUD"> AUD </option>
                     <option value="BGN">BGN</option>
                     <option value="BRL">BRL</option>

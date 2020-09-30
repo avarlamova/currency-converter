@@ -31,15 +31,26 @@ componentDidUpdate(prevState) {
     };
 
 updateBaseCurrency = (e) => {
+
+    if (this.state.reversed === false)
     this.setState({
         base_currency: e.target.value,
+    })
+    else if(this.state.reversed === true) 
+    this.setState({
+        target_currency: e.target.value,
     })
 };
 
 updateTargetCurrency = (e) => {
+    if (this.state.reversed === false)
     this.setState({
         target_currency: e.target.value,
-    });
+    })
+    else if(this.state.reversed === true) 
+    this.setState({
+        base_currency: e.target.value,
+    })
 };
 
 onInput = (e) => {
@@ -63,7 +74,6 @@ getCurrency = () => {
 getCurrencyReversed = () => {
     this.apiСlient.getresults(this.state.target_currency)
       .then((x)=> {
-        console.log(x);
           this.setState({
               rateReversed: x.rates[this.state.base_currency],
               rateReversedRounded: x.rates[this.state.base_currency].toFixed(2),
@@ -97,8 +107,6 @@ getOutcome = () => {
 reverse = () => {
     this.setState({
         reversed: !this.state.reversed,
-        base_currency: this.state.target_currency,
-        target_currency: this.state.base_currency,
     })
 }
 
@@ -108,6 +116,8 @@ render() {
     <div>
         <Header/>
         <InputWindow
+        reversed = {reversed}
+        target_currency = {target_currency}
         base_currency = {base_currency}
         onInput = {this.onInput}
         getCurrency = {this.getCurrency}
@@ -117,6 +127,7 @@ render() {
         reverse ={this.reverse}/>
         <Output
         target_currency = {target_currency}
+        base_currency = {base_currency}
         rate = {rateRounded}
         reversed = {reversed}
         rateReversed = {rateReversedRounded}

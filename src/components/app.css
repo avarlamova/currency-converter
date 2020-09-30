@@ -1,29 +1,37 @@
+* {
+    font-family: 'Oswald', sans-serif;
+}
+
 body {
+    background-color: #f0f0f0;
     margin: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    width: 30rem;
 }
 
-h3 {
+h2 {
+    background-color: blue;
+    color: white;
     margin-top: 3rem;
     margin-bottom: 2rem;
 }
 
 .input-form {
+    background-color: white;
+    border-radius: 20px;
     flex-grow: 2;
-    background-color: teal;
 }
 
 .output-form {
+    background-color: white;
+    border-radius: 20px;
     flex-grow: 2;
-    background-color: red;
 }
 
 .convert-btn {
     flex-grow: 1;
-    background-color: springgreen;
 }
+

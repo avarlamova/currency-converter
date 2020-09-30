@@ -4,9 +4,9 @@ export default class Header extends React.Component {
     render() {
         return(
         <div className="header"> 
-            <h3>
-                This helps you convert one currency into another
-            </h3>
+            <h2>
+                This will help you convert one currency into another
+            </h2>
         </div>
         )
     }
