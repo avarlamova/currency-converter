@@ -6,9 +6,10 @@ export default class InputWindow extends React.Component {
     render() {
     const {reversed, amount, onInput, updateBaseCurrency, getCurrency, target_currency, base_currency} = this.props;
         return(
-        <div className="input-form"> 
+        <div className="currency-form"> 
             <span/> Currency
-            <select value = {reversed ? target_currency : base_currency}
+            <br></br>
+            <select className="select-form" value = {reversed ? target_currency : base_currency}
                     onChange={updateBaseCurrency}>
                     <option value="AUD">AUD </option>
                     <option value="BGN">BGN</option>

@@ -4,12 +4,13 @@ import InputWindow from './inputwindow';
 import Output from './output';
 import APIService from './api-client.js';
 import ReverseButton from './reversebutton';
+import ConvertButton from './convertbtn';
 import './app.css';
 
 export default class App extends Component {
 state = {
     base_currency: 'USD',
-    target_currency:'EUR',
+    target_currency: 'EUR',
     amount: 100,
     rate: null,
     rateRounded: null,
@@ -113,8 +114,9 @@ reverse = () => {
 render() {
     const {amount, target_currency, base_currency, outcome, rateRounded, reversed, rateReversedRounded } = this.state;
     return(
-    <div>
+    <div className="container">
         <Header/>
+        <div className="form-container"> 
         <InputWindow
         reversed = {reversed}
         target_currency = {target_currency}
@@ -123,8 +125,6 @@ render() {
         getCurrency = {this.getCurrency}
         updateBaseCurrency = {this.updateBaseCurrency}
         amount = {amount}/>
-        <ReverseButton 
-        reverse ={this.reverse}/>
         <Output
         target_currency = {target_currency}
         base_currency = {base_currency}
@@ -132,8 +132,12 @@ render() {
         reversed = {reversed}
         rateReversed = {rateReversedRounded}
         outcome = {outcome}
-        updateTargetCurrency = {this.updateTargetCurrency}
-        getOutcome = {this.getOutcome} />
+        updateTargetCurrency = {this.updateTargetCurrency}/>
+        <ReverseButton 
+        reverse ={this.reverse}/>
+        </div>
+        <ConvertButton
+        getOutcome = {this.getOutcome}/>
     </div>
     )
 };
