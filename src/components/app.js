@@ -63,21 +63,23 @@ onInput = (e) => {
 apiСlient = new APIService();
 
 getCurrency = () => {
-    this.apiСlient.getresults(this.state.base_currency)
+    this.apiСlient.getresults(this.state.base_currency, this.state.target_currency)
     .then((x)=> {
+        let rateAcquired = `${this.state.base_currency}_${this.state.target_currency}`;
         this.setState({
-            rate: x.rates[this.state.target_currency],
-            rateRounded: x.rates[this.state.target_currency].toFixed(2),
+            rate: x[rateAcquired],
+            rateRounded: x[rateAcquired].toFixed(2),
         });
       });
     };
 
 getCurrencyReversed = () => {
-    this.apiСlient.getresults(this.state.target_currency)
+    this.apiСlient.getresults(this.state.target_currency,this.state.base_currency)
       .then((x)=> {
+        let rateAcquired = `${this.state.target_currency}_${this.state.base_currency}`;
           this.setState({
-              rateReversed: x.rates[this.state.base_currency],
-              rateReversedRounded: x.rates[this.state.base_currency].toFixed(2),
+              rateReversed: x[rateAcquired],
+              rateReversedRounded: x[rateAcquired].toFixed(2),
           });
         });
 }
@@ -108,6 +110,7 @@ getOutcome = () => {
 reverse = () => {
     this.setState({
         reversed: !this.state.reversed,
+        outcome: null,
     })
 }
 
@@ -125,6 +128,8 @@ render() {
         getCurrency = {this.getCurrency}
         updateBaseCurrency = {this.updateBaseCurrency}
         amount = {amount}/>
+         <ReverseButton 
+        reverse ={this.reverse}/>
         <Output
         target_currency = {target_currency}
         base_currency = {base_currency}
@@ -133,8 +138,6 @@ render() {
         rateReversed = {rateReversedRounded}
         outcome = {outcome}
         updateTargetCurrency = {this.updateTargetCurrency}/>
-        <ReverseButton 
-        reverse ={this.reverse}/>
         </div>
         <ConvertButton
         getOutcome = {this.getOutcome}/>
