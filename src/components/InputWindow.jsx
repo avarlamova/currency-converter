@@ -3,12 +3,10 @@ import React from "react";
 export default class InputWindow extends React.Component {
   render() {
     const {
-      reversed,
       amount,
-      onInput,
+      updateAmount,
       updateBaseCurrency,
       getCurrency,
-      targetCurrency,
       baseCurrency,
       currencies,
     } = this.props;
@@ -16,10 +14,11 @@ export default class InputWindow extends React.Component {
     return (
       <div className="currency-form">
         <span>From:</span>
+        <br></br>
         <select
           className="select-form"
-          value={reversed ? targetCurrency : baseCurrency}
-          onChange={updateBaseCurrency}
+          value={baseCurrency}
+          onChange={(e) => updateBaseCurrency("baseCurrency", e)}
         >
           {currencies.map((currency) => (
             <option key={currency}>{currency}</option>
@@ -29,7 +28,7 @@ export default class InputWindow extends React.Component {
           <span>Sum</span>
           <input
             type="number"
-            onInput={onInput}
+            onInput={updateAmount}
             onChange={getCurrency}
             placeholder=""
             defaultValue={amount}

@@ -1,25 +1,17 @@
 import React from "react";
 
-export default class Output extends React.Component {
+export default class OutputWindow extends React.Component {
   render() {
-    const {
-      baseCurrency,
-      reversed,
-      rate,
-      outcome,
-      targetCurrency,
-      updateTargetCurrency,
-      rateReversed,
-      currencies,
-    } = this.props;
+    const { rate, outcome, targetCurrency, updateTargetCurrency, currencies } =
+      this.props;
 
     return (
       <div className="currency-form">
         <span>To:</span>
         <select
           className="select-form"
-          value={reversed ? baseCurrency : targetCurrency}
-          onChange={updateTargetCurrency}
+          value={targetCurrency}
+          onChange={(e) => updateTargetCurrency("targetCurrency", e)}
         >
           {currencies.map((currency) => (
             <option key={currency}>{currency}</option>
@@ -30,11 +22,7 @@ export default class Output extends React.Component {
           <input type="number" defaultValue={outcome} />
         </form>
         <div>
-          {reversed ? (
-            <div>Rate: {rateReversed} </div>
-          ) : (
-            <div>Rate: {rate}</div>
-          )}
+          <div>Rate: {rate}</div>
         </div>
       </div>
     );

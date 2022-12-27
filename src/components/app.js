@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import Header from "./header";
-import InputWindow from "./inputwindow";
-import Output from "./output";
-// import APIService from "./api-client.js";
-import ReverseButton from "./reversebutton";
-import ConvertButton from "./convertbtn";
+// import Header from "./header";
+import InputWindow from "./InputWindow";
+import OutputWindow from "./OutputWindow";
+import ReverseButton from "./ReverseButton";
+import ConvertButton from "./ConvertButton";
 import "./app.css";
 import axios from "axios";
 
@@ -16,23 +15,8 @@ export default class App extends Component {
     rate: null,
     rateRounded: null,
     outcome: null,
-    // rateReversed: null,
-    // rateReversedRounded: null,
-    // reversed: false,
     currencies: [],
   };
-
-  // componentDidUpdate(prevState) {
-  //   if (this.state.reversed === false) {
-  //     if (
-  //       prevState.baseCurrency !== this.state.baseCurrency ||
-  //       prevState.targetCurrency !== this.state.targetCurrency
-  //     )
-  //       this.getCurrency();
-  //   } else if (this.state.reversed === true) {
-  //     this.getCurrencyReversed();
-  //   }
-  // }
 
   //get the list of all possible currencies
   async componentDidMount() {
@@ -50,40 +34,28 @@ export default class App extends Component {
       })
       .catch((error) => {
         console.error(error);
+        alert(
+          "An error occurred while trying to retrieve the list of currencies. Please try later!"
+        );
       });
   }
 
-  updateBaseCurrency = (e) => {
-    // if (this.state.reversed === false)
+  updateCurrency = (option, e) => {
     this.setState({
-      baseCurrency: e.target.value,
+      [option]: e.target.value,
+      rate: null,
+      rateRounded: null,
+      outcome: null,
     });
-    // else if (this.state.reversed === true)
-    //   this.setState({
-    //     targetCurrency: e.target.value,
-    //   });
   };
 
-  updateTargetCurrency = (e) => {
-    // if (this.state.reversed === false)
-    this.setState({
-      targetCurrency: e.target.value,
-    });
-    // else if (this.state.reversed === true)
-    //   this.setState({
-    //     baseCurrency: e.target.value,
-    //   });
-  };
-
-  onInput = (e) => {
+  updateAmount = (e) => {
     this.setState({
       amount: e.target.value,
     });
   };
 
-  // apiСlient = new APIService();
-
-  getCurrency = () => {
+  getRate = () => {
     const options = {
       method: "GET",
       url: "http://localhost:3001/convert",
@@ -97,10 +69,13 @@ export default class App extends Component {
     axios
       .request(options)
       .then((response) => {
-        this.setState({
-          rate: response.data,
-          rateRounded: response.data.toFixed(2),
-        });
+        this.setState(
+          {
+            rate: response.data,
+            rateRounded: response.data.toFixed(2),
+          },
+          this.computeResult
+        );
       })
       .catch((err) => {
         console.log(err);
@@ -108,28 +83,19 @@ export default class App extends Component {
       });
   };
 
-  // getCurrencyReversed = () => {
-  //   this.apiСlient
-  //     .getresults(this.state.targetCurrency, this.state.baseCurrency)
-  //     .then((x) => {
-  //       let rateAcquired = `${this.state.targetCurrency}_${this.state.baseCurrency}`;
-  //       this.setState({
-  //         rateReversed: x[rateAcquired],
-  //         rateReversedRounded: x[rateAcquired].toFixed(2),
-  //       });
-  //     });
-  // };
+  computeResult = () => {
+    let result = this.state.amount * this.state.rate;
+    result = result.toFixed(2);
+    this.setState({
+      outcome: result,
+    });
+  };
 
   getOutcome = () => {
-    if (this.state.rate) {
-      // if (this.state.reversed === false) {
-      let result = this.state.amount * this.state.rate;
-      result = result.toFixed(2);
-      this.setState({
-        outcome: result,
-      });
+    if (!this.state.rate) {
+      this.getRate();
     } else {
-      this.getCurrency();
+      this.computeResult();
     }
   };
 
@@ -141,8 +107,7 @@ export default class App extends Component {
         targetCurrency: prevState.baseCurrency,
         outcome: null,
       };
-    });
-    this.getCurrency();
+    }, this.getRate);
   };
 
   render() {
@@ -152,34 +117,27 @@ export default class App extends Component {
       baseCurrency,
       outcome,
       rateRounded,
-      reversed,
-      rateReversedRounded,
       currencies,
     } = this.state;
     return (
       <div className="container">
-        <Header />
+        {/* <Header /> */}
         <div className="form-container">
           <InputWindow
             currencies={currencies}
-            reversed={reversed}
-            targetCurrency={targetCurrency}
             baseCurrency={baseCurrency}
-            onInput={this.onInput}
-            getCurrency={this.getCurrency}
-            updateBaseCurrency={this.updateBaseCurrency}
+            updateAmount={this.updateAmount}
+            getCurrency={this.getRate}
+            updateBaseCurrency={this.updateCurrency}
             amount={amount}
           />
           <ReverseButton reverse={this.reverse} />
-          <Output
+          <OutputWindow
             currencies={currencies}
             targetCurrency={targetCurrency}
-            baseCurrency={baseCurrency}
             rate={rateRounded}
-            reversed={reversed}
-            rateReversed={rateReversedRounded}
             outcome={outcome}
-            updateTargetCurrency={this.updateTargetCurrency}
+            updateTargetCurrency={this.updateCurrency}
           />
         </div>
         <ConvertButton getOutcome={this.getOutcome} />
