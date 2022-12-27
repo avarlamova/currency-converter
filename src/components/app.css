@@ -1,94 +1,92 @@
 * {
-    font-family: 'Oswald', sans-serif;
+  font-family: "Oswald", sans-serif;
 }
 
 body {
-    background-color: #f0f0f0;
-    margin: 0;
+  background-color: #f0f0f0;
+  margin: 0;
 }
 /*add media query for small monitors*/
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    text-align: center;
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  text-align: center;
+  flex-wrap: wrap;
 }
 
 .form-container {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
-
 h2 {
-    padding: 1rem;
-    background-color: blue;
-    color: white;
-    margin-left: 5rem;
-    margin-top: 5rem;
-    margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: blue;
+  color: white;
+  margin-left: 5rem;
+  margin-top: 5rem;
+  margin-bottom: 2rem;
 }
 
 .currency-form {
-    order: 2;
-    font-size: 24px;
-    padding: 0.5rem;
-    background-color: white;
-    border-radius: 20px;
-    margin-right: 1rem;
-    margin-left: 1rem;
-    margin-bottom: 1rem;
-};
-
-.select-form {
-    font-family: Arial;
+  order: 2;
+  font-size: 24px;
+  padding: 0.5rem;
+  background-color: white;
+  border-radius: 20px;
+  margin-right: 1rem;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
 }
 
-select, input[type = number] {
-    font-size: 20px;
+.select-form {
+  font-family: Arial;
+}
+
+select,
+input[type="number"] {
+  font-size: 20px;
 }
 
 button:focus {
-    outline: none;
-  }
+  outline: none;
+}
 
 .reverse-btn {
-    margin-right: 1%;
-    margin-top: 11%;
-    flex-grow: 1;
-    order: 1;
+  margin-right: 1%;
+  margin-top: 11%;
+  flex-grow: 1;
+  order: 1;
 }
 
 .reverse-btn button {
-    background-color: #FFEFD5;
-    font-size: 24px;
-    margin-right: 0.1rem;
-    padding: 10%;
+  background-color: #ffefd5;
+  font-size: 24px;
+  margin-right: 0.1rem;
+  padding: 10%;
 }
 
 .reverse-btn button:hover {
-    background-color: #FFDAB9;
-    cursor: pointer;
+  background-color: #ffdab9;
+  cursor: pointer;
 }
 
 .convert-btn {
-    margin-left: 5.2rem;
-    margin-top: 1rem;
-    flex-grow: 1;
+  margin-left: 5.2rem;
+  margin-top: 1rem;
+  flex-grow: 1;
 }
 
 .convert-btn button {
-    background-color: #ADFF2F;
-    border-radius: 10px;
-    font-size: 26px;
-    padding: 8%;
+  background-color: #adff2f;
+  border-radius: 10px;
+  font-size: 26px;
+  padding: 8%;
 }
 
 .convert-btn button:hover {
-    background-color: #9ACD32;
-    cursor: pointer;
-
+  background-color: #9acd32;
+  cursor: pointer;
 }
-
