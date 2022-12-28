@@ -2,8 +2,7 @@ import React, { Component } from "react";
 // import Header from "./header";
 import InputWindow from "./InputWindow";
 import OutputWindow from "./OutputWindow";
-import ReverseButton from "./ReverseButton";
-import ConvertButton from "./ConvertButton";
+import MyButton from "./MyButton";
 import "./app.css";
 import axios from "axios";
 
@@ -131,7 +130,11 @@ export default class App extends Component {
             updateBaseCurrency={this.updateCurrency}
             amount={amount}
           />
-          <ReverseButton reverse={this.reverse} />
+          <MyButton
+            clickHandler={this.reverse}
+            className={"reverse-btn"}
+            buttonText={"Reverse"}
+          />
           <OutputWindow
             currencies={currencies}
             targetCurrency={targetCurrency}
@@ -140,7 +143,11 @@ export default class App extends Component {
             updateTargetCurrency={this.updateCurrency}
           />
         </div>
-        <ConvertButton getOutcome={this.getOutcome} />
+        <MyButton
+          clickHandler={this.getOutcome}
+          className={"convert-btn"}
+          buttonText={"Convert"}
+        />
       </div>
     );
   }

@@ -6,19 +6,16 @@ body {
   background-color: #f0f0f0;
   margin: 0;
 }
-/*add media query for small monitors*/
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
   text-align: center;
-  flex-wrap: wrap;
 }
 
 .form-container {
   display: flex;
-  flex-direction: row;
 }
 
 h2 {
@@ -31,7 +28,6 @@ h2 {
 }
 
 .currency-form {
-  order: 2;
   font-size: 24px;
   padding: 0.5rem;
   background-color: white;
@@ -58,7 +54,6 @@ button:focus {
   margin-right: 1%;
   margin-top: 11%;
   flex-grow: 1;
-  order: 1;
 }
 
 .reverse-btn button {
