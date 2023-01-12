@@ -129,6 +129,9 @@ export default class App extends Component {
             getCurrency={this.getRate}
             updateBaseCurrency={this.updateCurrency}
             amount={amount}
+            targetCurrency={targetCurrency}
+            updateTargetCurrency={this.updateCurrency}
+            getOutcome={this.getOutcome}
           />
           <MyButton
             clickHandler={this.reverse}
@@ -137,17 +140,10 @@ export default class App extends Component {
           />
           <OutputWindow
             currencies={currencies}
-            targetCurrency={targetCurrency}
             rate={rateRounded}
             outcome={outcome}
-            updateTargetCurrency={this.updateCurrency}
           />
         </div>
-        <MyButton
-          clickHandler={this.getOutcome}
-          className={"convert-btn"}
-          buttonText={"Convert"}
-        />
       </div>
     );
   }
